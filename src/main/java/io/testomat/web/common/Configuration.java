@@ -11,6 +11,6 @@ public class Configuration {
     public static double browserToStartTimeout = 40000.0;
 
     public static String tracesPath = System.getProperty("user.dir") + "/build/pw";
-    public static boolean saveTraces = true;
+    public static boolean saveTraces = false;
 
 }
