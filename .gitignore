@@ -33,4 +33,4 @@ build/
 
 ### Mac OS ###
 .DS_Store
-playwright/.auth
+playwright/.auth/state.json
