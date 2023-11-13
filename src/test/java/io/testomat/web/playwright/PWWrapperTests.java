@@ -34,7 +34,7 @@ public class PWWrapperTests extends PWContextExtension{
 
     static {
         Configuration.baseUrl = "https://uat.testomat.io";
-        Configuration.headless = true;
+        Configuration.headless = false;
         Configuration.saveTraces = false;
         Configuration.poolingInterval = 0;
     }
