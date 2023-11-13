@@ -21,6 +21,7 @@ public class PlaywrightWrapper {
             var playwright = Playwright.create();
             var browser = playwright.chromium().launch(
                     new BrowserType.LaunchOptions()
+                            .setChannel("chrome")
                             .setHeadless(Configuration.headless)
                             .setTimeout(Configuration.browserToStartTimeout)
                             .setDevtools(Configuration.devTools)
