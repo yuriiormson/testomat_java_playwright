@@ -10,12 +10,10 @@ import io.testomat.web.pages.ProjectsPagePW;
 import io.testomat.web.pages.TestSuitesPagePW;
 import org.testng.annotations.Test;
 
-import static io.testomat.web.common.PlaywrightWrapper.$;
-import static io.testomat.web.common.PlaywrightWrapper.open;
+import static io.testomat.web.common.PlaywrightWrapper.*;
 
 
 public class PWWrapperTests extends PWContextExtension{
-//    private static final String STORAGE_STATE_FILE = "state.json";
     private static final String STORAGE_STATE_FILE = "playwright/.auth/state.json";
 
     Faker faker = new Faker();
