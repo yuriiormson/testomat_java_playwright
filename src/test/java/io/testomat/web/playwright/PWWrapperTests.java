@@ -26,8 +26,8 @@ import static io.testomat.web.common.PlaywrightWrapper.open;
 
 
 public class PWWrapperTests extends PWContextExtension{
-    private static final String STORAGE_STATE_FILE = "state.json";
-//    private static final String STORAGE_STATE_FILE = "playwright/.auth/state.json";
+//    private static final String STORAGE_STATE_FILE = "state.json";
+    private static final String STORAGE_STATE_FILE = "playwright/.auth/state.json";
 
     Faker faker = new Faker();
 
