@@ -151,6 +151,4 @@ public class PlaywrightWrapper {
             throw new RuntimeException("Failed to load cookies from: " + filePath, e);
         }
     }
-
-
 }
