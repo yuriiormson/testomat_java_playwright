@@ -1,6 +1,6 @@
 package io.testomat.configutils;
 import lombok.extern.slf4j.Slf4j;
-import org.testng.Reporter;
+
 @Slf4j
 public class LoggingConfProperties extends ConfProperties {
     private final ConfProperties properties;
