@@ -27,8 +27,6 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
       - name: Set conf.properties content
         env:
           USERNAME: ${{ secrets.USERNAME }}
@@ -39,6 +37,9 @@ jobs:
           Password=$env:PASSWORD
           "@
           Set-Content -Path "$(System.DefaultWorkingDirectory)\src\test\resources\conf.properties" -Value $content
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+
 
 
 
