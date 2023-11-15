@@ -36,7 +36,7 @@ jobs:
           Username=$env:USERNAME
           Password=$env:PASSWORD
           "@
-          Set-Content -Path "$(System.DefaultWorkingDirectory)\src\test\resources\conf.properties" -Value $content
+          $content | Out-File -FilePath "$(System.DefaultWorkingDirectory)\src\test\resources\conf.properties" -Encoding utf8
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
