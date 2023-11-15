@@ -40,8 +40,7 @@ public class PWWrapperTests extends PWContextExtension{
         loginPage
                 .isLoaded()
                 .loginUser(properties.getProperty("Username"),properties.getProperty("Password"));
-//                .loginUser("yurii.ormson@gmail.com", "zEqgib-histuc-qibxo1"); //or loginUser(CredsWithRoles.MANAGER);
-//
+
         preloaderIsHidden();
 
         // After logging in, save the cookies to a file
