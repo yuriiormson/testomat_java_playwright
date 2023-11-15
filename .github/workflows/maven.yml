@@ -28,15 +28,9 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Set conf.properties content
-        env:
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
         run: |
-          $content = @"
-          Username=$env:USERNAME
-          Password=$env:PASSWORD
-          "@
-          $content | Out-File -FilePath "$(System.DefaultWorkingDirectory)\src\test\resources\conf.properties" -Encoding utf8
+          echo "Username=${{ secrets.USERNAME }}" > src/test/resources/conf.properties
+          echo "Password=${{ secrets.PASSWORD }}" >> src/test/resources/conf.properties
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
