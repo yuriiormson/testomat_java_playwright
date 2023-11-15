@@ -1,6 +1,8 @@
 package io.testomat.web.playwright;
 
 import com.microsoft.playwright.Locator;
+import io.testomat.configutils.ConfProperties;
+import io.testomat.configutils.LoggingConfProperties;
 import io.testomat.web.common.PlaywrightWrapper;
 import io.testomat.web.common.pageCondition.PageCondition;
 import io.testomat.web.pages.CompaniesPage;
@@ -18,6 +20,7 @@ import static io.testomat.web.common.PlaywrightWrapper.*;
 
 
 public class PWWrapperTests extends PWContextExtension{
+    protected ConfProperties properties = new LoggingConfProperties(new ConfProperties());
     private static final String STORAGE_STATE_FILE = "playwright/.auth/state.json";
 
     Faker faker = new Faker();
@@ -36,8 +39,9 @@ public class PWWrapperTests extends PWContextExtension{
         open("/users/sign_in");
         loginPage
                 .isLoaded()
-                .loginUser("yurii.ormson@gmail.com", "zEqgib-histuc-qibxo1"); //or loginUser(CredsWithRoles.MANAGER);
-
+                .loginUser(properties.getProperty("Username"),properties.getProperty("Password"));
+//                .loginUser("yurii.ormson@gmail.com", "zEqgib-histuc-qibxo1"); //or loginUser(CredsWithRoles.MANAGER);
+//
         preloaderIsHidden();
 
         // After logging in, save the cookies to a file
