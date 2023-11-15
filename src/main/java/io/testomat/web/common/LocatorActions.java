@@ -117,4 +117,9 @@ public class LocatorActions {
         locatorCondition.verify(this);
         return this;
     }
+
+    public LocatorActions shouldBe(LocatorCondition locatorCondition) {
+        locatorCondition.verify(this);
+        return this;
+    }
 }
