@@ -115,4 +115,5 @@ public class PWWrapperTests extends PWContextExtension{
         $("#app-loader").waitFor(new Locator.WaitForOptions().setState(HIDDEN).setTimeout(loaderTimeout));
     }
 
+
 }
