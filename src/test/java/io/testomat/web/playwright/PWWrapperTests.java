@@ -3,6 +3,7 @@ package io.testomat.web.playwright;
 import com.microsoft.playwright.Locator;
 import io.testomat.configutils.ConfProperties;
 import io.testomat.configutils.LoggingConfProperties;
+import io.testomat.confutils.ConfigReader;
 import io.testomat.web.common.PlaywrightWrapper;
 import io.testomat.web.common.pageCondition.PageCondition;
 import io.testomat.web.pages.CompaniesPage;
@@ -28,7 +29,7 @@ public class PWWrapperTests extends PWContextExtension{
     private final LoginPagePW loginPage = new LoginPagePW();
 
     static {
-        Configuration.baseUrl = "https://uat.testomat.io";
+        Configuration.baseUrl = ConfigReader.getBaseUrl();
         Configuration.headless = false;
         Configuration.saveTraces = false;
         Configuration.poolingInterval = 0;
