@@ -1,13 +1,13 @@
 package io.testomat.web.pages;
 
-import io.testomat.web.common.conditions.Condition;
+import io.testomat.web.common.locatorConditions.LocatorCondition;
 
 import static io.testomat.web.common.PlaywrightWrapper.$;
 
 public class LoginPagePW extends BasePage {
 
       public LoginPagePW isLoaded() {
-        f("h2").shouldHave(Condition.text("Sign in"));
+        f("h2").shouldHave(LocatorCondition.text("Sign in"));
         return this;
     }
 
@@ -33,7 +33,7 @@ public class LoginPagePW extends BasePage {
     }
 
     public void preloaderIsHidden() {
-        $("#app-loader").shouldBe(Condition.disappear);
+        $("#app-loader").shouldBe(LocatorCondition.hidden);
     }
 
 }

@@ -1,15 +1,19 @@
 package io.testomat.web.playwright;
 
+import com.microsoft.playwright.Locator;
 import io.testomat.web.common.PlaywrightWrapper;
+import io.testomat.web.common.pageCondition.PageCondition;
+import io.testomat.web.pages.CompaniesPage;
 import net.datafaker.Faker;
 import io.testomat.web.common.PWContextExtension;
 import io.testomat.web.common.Configuration;
-import io.testomat.web.common.conditions.Condition;
+import io.testomat.web.common.locatorConditions.LocatorCondition;
 import io.testomat.web.pages.LoginPagePW;
 import io.testomat.web.pages.ProjectsPagePW;
-import io.testomat.web.pages.TestSuitesPagePW;
 import org.testng.annotations.Test;
 
+import static com.microsoft.playwright.options.WaitForSelectorState.HIDDEN;
+import static io.testomat.web.common.Configuration.loaderTimeout;
 import static io.testomat.web.common.PlaywrightWrapper.*;
 
 
@@ -28,88 +32,87 @@ public class PWWrapperTests extends PWContextExtension{
     }
 
     @Test
-    public void shouldBePossibleToCreateTestSuiteForNewProject() {
+    public void HomePageIsLoadedSuccessfullyAfterLogIn() {
         open("/users/sign_in");
         loginPage
                 .isLoaded()
-                .loginUser("newromka@gmail.com", "3y77b7HzrL2ebwQ!"); //or loginUser(CredsWithRoles.MANAGER);
+                .loginUser("yurii.ormson@gmail.com", "zEqgib-histuc-qibxo1"); //or loginUser(CredsWithRoles.MANAGER);
 
         preloaderIsHidden();
 
         // After logging in, save the cookies to a file
         PlaywrightWrapper.saveCookies(STORAGE_STATE_FILE);
 
-        final var targetProjectTitle = faker.commerce().department();
         new ProjectsPagePW()
-                .isLoaded()
-                .clickOnNewProjectButton()
-                .fillProjectTitle(targetProjectTitle)
-                .submitProjectCreation();
-
-        preloaderIsHidden();
-
-        String targetTestSuite = faker.commerce().productName();
-
-        new TestSuitesPagePW()
-                .isLoaded()
-                .closeReadmeModal()
-                .fillFirstTestSuite(targetTestSuite);
+                .getHomePageHeader()
+                .shouldHave(LocatorCondition.text("Projects"));
 
     }
 
-    @Test
-    public void shouldBePossibleToCreateTestSuiteForNewProject2() {
+    @Test(dependsOnMethods = {"HomePageIsLoadedSuccessfullyAfterLogIn"})
+    public void UserAbleToSearchTheProject() {
         PlaywrightWrapper.loadCookies(STORAGE_STATE_FILE);
 
         open("");
 
         preloaderIsHidden();
 
-        final var targetProjectTitle = faker.commerce().department();
         new ProjectsPagePW()
-                .isLoaded()
-                .clickOnNewProjectButton()
-                .fillProjectTitle(targetProjectTitle)
-                .submitProjectCreation();
+                .clickOnListView()
+                .fillSearchProject("Computers")
+                .clickOnItemInTheList("\n" +
+                        "                            Computers & Tools\n" +
+                        "                          ");
 
-        preloaderIsHidden();
-
-        String targetTestSuite = faker.commerce().productName();
-
-        new TestSuitesPagePW()
-                .isLoaded()
-                .closeReadmeModal()
-                .fillFirstTestSuite(targetTestSuite);
-
+        new ProjectsPagePW()
+                .getProjectHeader()
+                .shouldHave(LocatorCondition.text("Computers & Tools"));
     }
 
     @Test
-    public void shouldBePossibleToCreateTestSuiteForNewProject3() {
+    public void shouldBePossibleToCreateTestSuiteForTheProject() {
         PlaywrightWrapper.loadCookies(STORAGE_STATE_FILE);
 
         open("");
 
         preloaderIsHidden();
 
-        final var targetProjectTitle = faker.commerce().department();
         new ProjectsPagePW()
-                .isLoaded()
-                .clickOnNewProjectButton()
-                .fillProjectTitle(targetProjectTitle)
-                .submitProjectCreation();
-
-        preloaderIsHidden();
+                .clickOnListView()
+                .fillSearchProject("Computers")
+                .clickOnItemInTheList("\n" +
+                        "                            Computers & Tools\n" +
+                        "                          ");
 
         String targetTestSuite = faker.commerce().productName();
 
-        new TestSuitesPagePW()
-                .isLoaded()
-                .closeReadmeModal()
-                .fillFirstTestSuite(targetTestSuite);
+        new ProjectsPagePW()
+                .clickToAdd()
+                .clickToAddSuite()
+                .fillTitleOfANewSuite(targetTestSuite)
+                .clickSaveTestSuite()
+                .getTextOfTestSuiteHeader()
+                .shouldHave(LocatorCondition.text(targetTestSuite));
+    }
+    @Test
+    public void shouldBePossibleToOpenTheCompanyPage(){
+        var expectedCompanyPageURL = "https://uat.testomat.io/companies";
+        var expectedCompaniesHeader = "Companies";
+        var expectedCompaniesTitle = "Companies - Testomat.io";
+
+        PlaywrightWrapper.loadCookies(STORAGE_STATE_FILE);
+
+        open("/companies");
+
+        preloaderIsHidden();
+
+        getPageActions().getUrl().shouldHave(PageCondition.url(expectedCompanyPageURL));
+        new CompaniesPage().getCompaniesHeader().shouldHave(LocatorCondition.text(expectedCompaniesHeader));
+        getPageActions().getTitle().shouldHave(PageCondition.title(expectedCompaniesTitle));
     }
 
     private void preloaderIsHidden() {
-        $("#app-loader").shouldBe(Condition.disappear);
+        $("#app-loader").waitFor(new Locator.WaitForOptions().setState(HIDDEN).setTimeout(loaderTimeout));
     }
 
 }

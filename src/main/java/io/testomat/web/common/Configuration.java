@@ -7,10 +7,10 @@ public class Configuration {
     public static boolean devTools = false;
     public static double defaultTimeout = 4000.0;
     public static double poolingInterval = 100.0;
-
     public static double browserToStartTimeout = 40000.0;
-
     public static String tracesPath = System.getProperty("user.dir") + "/build/pw";
     public static boolean saveTraces = false;
+    public static double loaderTimeout = 60000.0;
+    public static double locatorTimeout = 60000.0;
 
 }

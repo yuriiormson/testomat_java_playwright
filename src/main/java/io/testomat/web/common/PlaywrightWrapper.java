@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.Cookie;
+import com.microsoft.playwright.options.LoadState;
 import lombok.Data;
 
 import java.io.IOException;
@@ -89,14 +90,27 @@ public class PlaywrightWrapper {
 
 
     public static LocatorActions $(String selector) {
+        pw().getPage().waitForLoadState(LoadState.NETWORKIDLE);
         return find(selector);
     }
 
+    public static LocatorActions $(String selector, String text) {
+        pw().getPage().waitForLoadState(LoadState.NETWORKIDLE);
+        return find(selector,text);
+    }
+
     public static LocatorActions find(String selector) {
+        pw().getPage().waitForLoadState(LoadState.NETWORKIDLE);
         return new LocatorActions(pw().getPage().locator(selector).first());
     }
 
+    public static LocatorActions findAll(String selector) {
+        pw().getPage().waitForLoadState(LoadState.NETWORKIDLE);
+        return new LocatorActions(pw().getPage().locator(selector));
+    }
+
     public static LocatorActions find(String selector, String text) {
+        pw().getPage().waitForLoadState(LoadState.NETWORKIDLE);
         return new LocatorActions(pw().getPage().locator(selector).filter(
                 new Locator.FilterOptions().setHasText(text)
         ));
@@ -120,17 +134,21 @@ public class PlaywrightWrapper {
 
     }
 
-    public static void saveStorageState(String filePath) {
-        BrowserContext context = pw().getContext();
-        context.storageState(new BrowserContext.StorageStateOptions().setPath(Paths.get(filePath)));
+    public static PageActions getPageActions() {
+        return new PageActions(pw().getPage());
     }
 
-    public static BrowserContext createNewContextWithStorageState(String filePath) {
-        Browser browser = pw().getBrowser();
-        BrowserContext context = browser.newContext(
-                new Browser.NewContextOptions().setStorageStatePath(Paths.get(filePath)));
-        return context;
-    }
+//    public static void saveStorageState(String filePath) {
+//        BrowserContext context = pw().getContext();
+//        context.storageState(new BrowserContext.StorageStateOptions().setPath(Paths.get(filePath)));
+//    }
+//
+//    public static BrowserContext createNewContextWithStorageState(String filePath) {
+//        Browser browser = pw().getBrowser();
+//        BrowserContext context = browser.newContext(
+//                new Browser.NewContextOptions().setStorageStatePath(Paths.get(filePath)));
+//        return context;
+//    }
 
     public static void saveCookies(String filePath) {
         try {

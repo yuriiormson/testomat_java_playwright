@@ -1,4 +1,4 @@
-package io.testomat.web.common.conditions;
+package io.testomat.web.common.locatorConditions;
 
 import com.microsoft.playwright.assertions.LocatorAssertions;
 import com.microsoft.playwright.assertions.PlaywrightAssertions;
@@ -7,7 +7,7 @@ import io.testomat.web.common.LocatorActions;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class TextCondition implements Condition {
+public class TextLocatorCondition implements LocatorCondition {
 
     private final String expectedText;
 

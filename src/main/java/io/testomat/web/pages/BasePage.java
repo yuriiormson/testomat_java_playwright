@@ -13,4 +13,8 @@ private final String baseContent = System.getProperty("isMobile") == null ? "#co
         return $(baseContent + selector);
     }
 
+    protected LocatorActions f(String selector,String selectorText) {
+        return $(baseContent + selector,selectorText);
+    }
+
 }

@@ -1,6 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="Full Smoke" verbose="1">
+    <listeners>
+        <listener class-name="io.testomat.listeners.AnnotationTransformer"/>
+    </listeners>
     <test name="Check all">
         <classes>
             <class name="io.testomat.web.playwright.PWWrapperTests">

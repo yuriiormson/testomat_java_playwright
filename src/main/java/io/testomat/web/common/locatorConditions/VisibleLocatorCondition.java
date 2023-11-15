@@ -1,4 +1,4 @@
-package io.testomat.web.common.conditions;
+package io.testomat.web.common.locatorConditions;
 
 import com.microsoft.playwright.assertions.LocatorAssertions;
 import io.testomat.web.common.Configuration;
@@ -6,19 +6,18 @@ import io.testomat.web.common.LocatorActions;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-public class IsHiddenCondition implements Condition {
+public class VisibleLocatorCondition implements LocatorCondition {
 
     @Override
     public void verify(LocatorActions locatorActions) {
-        assertThat(locatorActions.getLocator())
-                .isHidden(
-                        new LocatorAssertions.IsHiddenOptions().setTimeout(Configuration.defaultTimeout)
-                );
+        assertThat(locatorActions.getLocator()).isVisible(
+                new LocatorAssertions.IsVisibleOptions().setTimeout(Configuration.defaultTimeout)
+        );
     }
 
     @Override
     public String toString() {
-        return "hidden";
+        return "is visible";
     }
 
 }
