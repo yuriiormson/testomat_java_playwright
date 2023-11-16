@@ -34,8 +34,6 @@ public class LocatorActions {
         return this;
     }
 
-
-
     public void waitFor(Locator.WaitForOptions options) {
         locator.waitFor(options);
     }

@@ -23,9 +23,7 @@ import static io.testomat.web.common.PlaywrightWrapper.*;
 public class PWWrapperTests extends PWContextExtension{
     protected ConfProperties properties = new LoggingConfProperties(new ConfProperties());
     private static final String STORAGE_STATE_FILE = "playwright/.auth/state.json";
-
     Faker faker = new Faker();
-
     private final LoginPagePW loginPage = new LoginPagePW();
     private final ProjectsPagePW projectsPagePW = new ProjectsPagePW();
 
