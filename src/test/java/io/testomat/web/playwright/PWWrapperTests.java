@@ -27,6 +27,7 @@ public class PWWrapperTests extends PWContextExtension{
     Faker faker = new Faker();
 
     private final LoginPagePW loginPage = new LoginPagePW();
+    private final ProjectsPagePW projectsPagePW = new ProjectsPagePW();
 
     static {
         Configuration.baseUrl = ConfigReader.getBaseUrl();
@@ -47,7 +48,7 @@ public class PWWrapperTests extends PWContextExtension{
         // After logging in, save the cookies to a file
         PlaywrightWrapper.saveCookies(STORAGE_STATE_FILE);
 
-        new ProjectsPagePW()
+        projectsPagePW
                 .getHomePageHeader()
                 .shouldHave(LocatorCondition.text("Projects"));
 
@@ -61,14 +62,14 @@ public class PWWrapperTests extends PWContextExtension{
 
         preloaderIsHidden();
 
-        new ProjectsPagePW()
+        projectsPagePW
                 .clickOnListView()
                 .fillSearchProject("Computers")
                 .clickOnItemInTheList("\n" +
                         "                            Computers & Tools\n" +
                         "                          ");
 
-        new ProjectsPagePW()
+        projectsPagePW
                 .getProjectHeader()
                 .shouldHave(LocatorCondition.text("Computers & Tools"));
     }
@@ -81,7 +82,7 @@ public class PWWrapperTests extends PWContextExtension{
 
         preloaderIsHidden();
 
-        new ProjectsPagePW()
+        projectsPagePW
                 .clickOnListView()
                 .fillSearchProject("Computers")
                 .clickOnItemInTheList("\n" +
@@ -90,7 +91,7 @@ public class PWWrapperTests extends PWContextExtension{
 
         String targetTestSuite = faker.commerce().productName();
 
-        new ProjectsPagePW()
+        projectsPagePW
                 .clickToAdd()
                 .clickToAddSuite()
                 .fillTitleOfANewSuite(targetTestSuite)
