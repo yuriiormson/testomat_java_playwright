@@ -90,27 +90,27 @@ public class PlaywrightWrapper {
 
 
     public static LocatorActions $(String selector) {
-        pw().getPage().waitForLoadState(LoadState.DOMCONTENTLOADED);
+        pw().getPage().waitForLoadState(LoadState.LOAD);
         return find(selector);
     }
 
     public static LocatorActions $(String selector, String text) {
-        pw().getPage().waitForLoadState(LoadState.DOMCONTENTLOADED);
+        pw().getPage().waitForLoadState(LoadState.LOAD);
         return find(selector,text);
     }
 
     public static LocatorActions find(String selector) {
-        pw().getPage().waitForLoadState(LoadState.DOMCONTENTLOADED);
+        pw().getPage().waitForLoadState(LoadState.LOAD);
         return new LocatorActions(pw().getPage().locator(selector).first());
     }
 
     public static LocatorActions findAll(String selector) {
-        pw().getPage().waitForLoadState(LoadState.DOMCONTENTLOADED);
+        pw().getPage().waitForLoadState(LoadState.LOAD);
         return new LocatorActions(pw().getPage().locator(selector));
     }
 
     public static LocatorActions find(String selector, String text) {
-        pw().getPage().waitForLoadState(LoadState.DOMCONTENTLOADED);
+        pw().getPage().waitForLoadState(LoadState.LOAD);
         return new LocatorActions(pw().getPage().locator(selector).filter(
                 new Locator.FilterOptions().setHasText(text)
         ));
