@@ -47,7 +47,9 @@ public class PlaywrightWrapper {
     }
 
     public static void initTestContext(String testName) {
-        var newContextOptions = new Browser.NewContextOptions();
+        var newContextOptions = new Browser.NewContextOptions()
+                .setViewportSize(1920, 1080)
+                .setIgnoreHTTPSErrors(true);
         newContextOptions.baseURL = Configuration.baseUrl;
 
         var pw = pw();
@@ -96,7 +98,7 @@ public class PlaywrightWrapper {
 
     public static LocatorActions $(String selector, String text) {
         pw().getPage().waitForLoadState(LoadState.LOAD);
-        return find(selector,text);
+        return find(selector, text);
     }
 
     public static LocatorActions find(String selector) {
@@ -164,7 +166,8 @@ public class PlaywrightWrapper {
     public static void loadCookies(String filePath) {
         try {
             String cookiesJson = new String(Files.readAllBytes(Paths.get(filePath)));
-            List<Cookie> cookies = new Gson().fromJson(cookiesJson, new TypeToken<List<Cookie>>(){}.getType());
+            List<Cookie> cookies = new Gson().fromJson(cookiesJson, new TypeToken<List<Cookie>>() {
+            }.getType());
             pw().getContext().addCookies(cookies);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load cookies from: " + filePath, e);
