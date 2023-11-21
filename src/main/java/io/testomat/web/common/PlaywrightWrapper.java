@@ -5,14 +5,16 @@ import com.google.gson.reflect.TypeToken;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.Cookie;
 import com.microsoft.playwright.options.LoadState;
+import com.microsoft.playwright.options.WaitUntilState;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-
+@Slf4j
 public class PlaywrightWrapper {
 
     private static final ConcurrentHashMap<Long, PWContainer> pw = new ConcurrentHashMap<>();
@@ -87,7 +89,12 @@ public class PlaywrightWrapper {
     }
 
     public static void open(String url) {
-        pw().getPage().navigate(url);
+        try {
+            pw().getPage().navigate(url, new Page.NavigateOptions().setWaitUntil(WaitUntilState.COMMIT));
+        } catch (Exception e) {
+            log.info("Current URL: " + pw().getPage().url());
+            log.error("An error occurred when navigate to URL: " + e.getMessage());
+        }
     }
 
 
