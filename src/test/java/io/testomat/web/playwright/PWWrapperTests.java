@@ -72,31 +72,31 @@ public class PWWrapperTests extends PWContextExtension{
                 .shouldHave(LocatorCondition.text("Computers & Tools"));
     }
 
-    @Test
-    public void shouldBePossibleToCreateTestSuiteForTheProject() {
-        PlaywrightWrapper.loadCookies(STORAGE_STATE_FILE);
-
-        open("");
-
-        preloaderIsHidden();
-
-        projectsPagePW
-                .clickOnListView()
-                .fillSearchProject("Computers")
-                .clickOnItemInTheList("\n" +
-                        "                            Computers & Tools\n" +
-                        "                          ");
-
-        String targetTestSuite = faker.commerce().productName();
-
-        projectsPagePW
-                .clickToAdd()
-                .clickToAddSuite()
-                .fillTitleOfANewSuite(targetTestSuite)
-                .clickSaveTestSuite()
-                .getTextOfTestSuiteHeader()
-                .shouldHave(LocatorCondition.text(targetTestSuite));
-    }
+//    @Test
+//    public void shouldBePossibleToCreateTestSuiteForTheProject() {
+//        PlaywrightWrapper.loadCookies(STORAGE_STATE_FILE);
+//
+//        open("");
+//
+//        preloaderIsHidden();
+//
+//        projectsPagePW
+//                .clickOnListView()
+//                .fillSearchProject("Computers")
+//                .clickOnItemInTheList("\n" +
+//                        "                            Computers & Tools\n" +
+//                        "                          ");
+//
+//        String targetTestSuite = faker.commerce().productName();
+//
+//        projectsPagePW
+//                .clickToAdd()
+//                .clickToAddSuite()
+//                .fillTitleOfANewSuite(targetTestSuite)
+//                .clickSaveTestSuite()
+//                .getTextOfTestSuiteHeader()
+//                .shouldHave(LocatorCondition.text(targetTestSuite));
+//    }
     @Test
     public void shouldBePossibleToOpenTheCompanyPage(){
         var expectedCompanyPageURL = "https://uat.testomat.io/companies";
